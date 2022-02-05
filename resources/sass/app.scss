@@ -1,0 +1,19 @@
+.products{
+    .product-cards{
+        .card{
+            .card-img-top{
+                width:auto;
+                height: 200px;
+                object-fit: contain;
+            }
+
+            .card-body{
+                h4{
+                    height: 4rem;
+                    line-height:2rem;
+                    overflow: hidden;
+                }
+            }
+        }
+    }
+}

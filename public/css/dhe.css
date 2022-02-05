@@ -1,0 +1,11 @@
+.products .product-cards .card .card-img-top {
+  width: auto;
+  height: 200px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.products .product-cards .card .card-body h4 {
+  height: 4rem;
+  line-height: 2rem;
+  overflow: hidden;
+}
