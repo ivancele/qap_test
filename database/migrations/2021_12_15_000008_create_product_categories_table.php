@@ -10,7 +10,7 @@ class CreateProductCategoriesTable extends Migration
     {
         Schema::create('product_categories', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name')->nullable();
+            $table->string('name')->unique(); //it doesn't make sense to have a null product category name, also it's best if they're unique
             $table->longText('description')->nullable();
             $table->timestamps();
             $table->softDeletes();

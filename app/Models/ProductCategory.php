@@ -54,6 +54,14 @@ class ProductCategory extends Model implements HasMedia
         return $file;
     }
 
+    public function setNameAttribute($name){
+        $this->attributes['name'] = strtolower($name);
+    }
+
+    public function getNameAttribute($name){
+        return ucwords($name);
+    }
+
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddUsernameFieldToUsersTable extends Migration
+class AddImageUrlToProductsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddUsernameFieldToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('username')->after('email')->unique()->nullable(); //username can be null but has to be unique
+        Schema::table('products', function (Blueprint $table) {
+            $table->string('img_url')->after('description')->nullable();
         });
     }
 
@@ -25,8 +25,8 @@ class AddUsernameFieldToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('username');
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropColumn('img_url');
         });
     }
 }
