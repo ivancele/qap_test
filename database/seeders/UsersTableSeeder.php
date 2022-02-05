@@ -15,10 +15,21 @@ class UsersTableSeeder extends Seeder
                 'name'           => 'Admin',
                 'email'          => 'admin@admin.com',
                 'password'       => bcrypt('password'),
-                'remember_token' => null,
+            ],
+            //Add 2 more users: customer (customer role) and user (role)
+            [
+                'name'           => 'Njabulo Ivan Cele',
+                'email'          => 'ivan@test.com',
+                'password'       => bcrypt('P@ssw0rd'),
+            ],
+            [
+                'name'           => 'Customer Nene',
+                'email'          => 'customer@test.com',
+                'password'       => bcrypt('P@ssw0rd'),
             ],
         ];
 
-        User::insert($users);
+        foreach($users as $user) User::create($user); 
+        //Create vs insert, create auto manages created_at and updated_at, created_at can be useful on some cases
     }
 }
