@@ -4,14 +4,15 @@
     <div class="row justify-content-center products">
         <div class="col-md-12">
             @can('product_create')
-            <div style="margin-bottom: 10px;" class="row">
-                <div class="col-lg-12">
-                    <a class="btn btn-success" href="{{ route('frontend.products.create') }}">
-                        {{ trans('global.add') }} {{ trans('cruds.product.title_singular') }}
-                    </a>
-                </div>
+            <div class="col-12 d-flex justify-content-end align-content-center align-items-center">
+                <a class="btn btn-success" href="{{ route('frontend.products.create') }}">
+                    {{ trans('global.add') }} {{ trans('cruds.product.title_singular') }}
+                </a>
             </div>
             @endcan
+
+
+
             {{-- <div class="card">
                 <div class="card-header">
                     {{ trans('cruds.product.title_singular') }} {{ trans('global.list') }}
@@ -117,41 +118,17 @@
                 </div>
             </div> --}}
 
-            <div class="row product-cards card-deck">
-                @forelse ($products as $key=>$product)
-                <div class="col-md-4 p-2">
-                    <div class="card rounded-0">
-                        <div class="card-header d-flex justify-content-between">
-                            <span class="price">R{{$product->price}}</span>
-                            <span class="btn-right">
-                                <span><i class="fas fa-lg mx-2 fa-info-circle"></i></span>
-                                <span><i class="fas fa-lg mx-2 fa-heart"></i></span>
-                                <span><i class="fas fa-lg mx-2 fa-cart-plus"></i></span>
-                            </span>
-                        </div>
-                        @if($product->photo)
-                        @elseif($product->img_url)
-                        <img src="{{$product->img_url}}" class="card-img-top img-fluid m-2" alt="...">
-                        @endif
-                        <div class="card-body">
-                            <h4 class="text-center">{{$product->name}}</h4>
-                            {{-- //REVIEW: displaying the description here seems to make it cluttered with too much
-                            information --}}
-                        </div>
+            <div class="container-fluid">
+                <span class="d-flex align-items-center align-content-center">
+                    <a href="{{ route('frontend.home')}}">Home</a><i class="fas fa-angle-right px-1"></i>
+                    <span>Products</span>
+                </span>
+            </div>
 
-                        <div class="card-footer">
-                            <div class="btn-group row w-100 rounded-0">
-                                @can('product_show')
-                                <a class="btn btn-primary col-6 rounded-0" href="{{ route('frontend.products.show', $product->id) }}">
-                                    More Info
-                                </a>
-                                @endcan
-                                <a class="btn btn-success col-6 rounded-0" href="{{ route('frontend.products.show', $product->id) }}">
-                                    <i class="fas fa-cart-plus"></i> Add to Cart
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+            <div class="row product-cards card-deck">
+                @forelse ($products as $key=>$cproduct)
+                <div class="col-md-4 p-2">
+                    @include("frontend.products._productCard")
                 </div>
                 @empty
                 <p>No Products Listed yet</p>

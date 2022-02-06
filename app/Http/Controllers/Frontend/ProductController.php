@@ -97,9 +97,7 @@ class ProductController extends Controller
 
         $similarProducts = ProductCategory::find($product->categories->pluck('id'))->load('products');
 
-        dd($similarProducts);
-
-        return view('frontend.products.show', compact('product'));
+        return view('frontend.products.show', compact('product', 'similarProducts'));
     }
 
     public function destroy(Product $product)
@@ -122,11 +120,32 @@ class ProductController extends Controller
     {
         abort_if(Gate::denies('product_create') && Gate::denies('product_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $model         = new Product();
-        $model->id     = $request->input('crud_id', 0);
+        $model = new Product();
+        $model->id = $request->input('crud_id', 0);
         $model->exists = true;
-        $media         = $model->addMediaFromRequest('upload')->toMediaCollection('ck-media');
+        $media = $model->addMediaFromRequest('upload')->toMediaCollection('ck-media');
 
         return response()->json(['id' => $media->id, 'url' => $media->getUrl()], Response::HTTP_CREATED);
+    }
+
+    //This can be achieved by one filter fn as well and using a get param on the url
+
+    public function getByCategory($category)
+    {
+        abort_if(Gate::denies('product_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $products = ProductCategory::with('products.media', 'products.tags', 'products.categories')->where('id', $category)->first()->products;
+        return view('frontend.products.index', compact('products'));
+    }
+
+    public function getByTag($tag)
+    {
+        abort_if(Gate::denies('product_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        // $products = Product::with(['categories', 'tags', 'media'])->get();
+        // $products = ProductCategory::with('products')->where('id', $category->id)->first()->products;
+        $products = ProductTag::with('products.media', 'products.tags', 'products.categories')->where('id', $tag)->first()->products;
+
+        return view('frontend.products.index', compact('products'));
     }
 }

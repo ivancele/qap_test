@@ -14,7 +14,10 @@
                         </div>
                     @endif
 
-                    {{ __('You are logged in!') }}
+                    <p>Hi {{ Auth::user()->name }},  welcome to Diamond Holding Experience Store.</p>
+                    <p>
+                        Please take a moment and browse through our collection of the best <a href="{{ route('frontend.products.index')}}"> Products </a>
+                    </p>
                 </div>
             </div>
         </div>

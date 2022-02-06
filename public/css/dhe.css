@@ -2,14 +2,22 @@
   border-radius: 30px;
 }
 
-.products .product-cards .card .card-img-top {
+.product-cards .card .card-img-top {
   width: auto;
   height: 200px;
   -o-object-fit: contain;
      object-fit: contain;
 }
-.products .product-cards .card .card-body h4 {
+.product-cards .card .card-body h4 {
   height: 4rem;
   line-height: 2rem;
   overflow: hidden;
+}
+
+.btn-group .btn + .btn, .btn-group .btn + .btn-group, .btn-group .btn-group + .btn, .btn-group .btn-group + .btn-group, .btn-group-vertical .btn + .btn, .btn-group-vertical .btn + .btn-group, .btn-group-vertical .btn-group + .btn, .btn-group-vertical .btn-group + .btn-group {
+  margin-left: 0px !important;
+}
+
+a.nodeco:hover {
+  text-decoration: none !important;
 }

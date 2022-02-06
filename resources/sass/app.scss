@@ -3,22 +3,33 @@
     border-radius:30px;
 }
 
-.products{
-    .product-cards{
-        .card{
-            .card-img-top{
-                width:auto;
-                height: 200px;
-                object-fit: contain;
-            }
+.product-cards{
+    .card{
+        .card-img-top{
+            width:auto;
+            height: 200px;
+            object-fit: contain;
+        }
 
-            .card-body{
-                h4{
-                    height: 4rem;
-                    line-height:2rem;
-                    overflow: hidden;
-                }
+        .card-body{
+            h4{
+                height: 4rem;
+                line-height:2rem;
+                overflow: hidden;
             }
         }
+    }
+}
+
+
+//Overrides
+//Overrides bootstrap styling that shows a line on the second btn of the btns in the card footer and it looks off
+.btn-group .btn + .btn, .btn-group .btn + .btn-group, .btn-group .btn-group + .btn, .btn-group .btn-group + .btn-group, .btn-group-vertical .btn + .btn, .btn-group-vertical .btn + .btn-group, .btn-group-vertical .btn-group + .btn, .btn-group-vertical .btn-group + .btn-group {
+	margin-left: 0px !important;
+}
+
+a.nodeco{
+    &:hover{
+        text-decoration: none !important;
     }
 }

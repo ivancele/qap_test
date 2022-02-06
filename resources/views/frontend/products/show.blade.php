@@ -98,8 +98,40 @@
             <hr />
         </div>
 
-        {{-- Breadcrumb here? --}}
-        <div class="col-md-9">
+        @canany(['product_edit', 'product_delete'])
+        <div class="col-12 d-flex justify-content-end align-content-center align-items-center">
+            {{-- Action btns for those with perms, user? and admin --}}
+            @can('product_edit')
+            <span class="btn btn-xs btn-info mx-2">
+                <a class="btn btn-xs btn-info" href="{{ route('frontend.products.edit', $product->id) }}">
+                    <i class="fas fa-pencil-alt"></i> {{ trans('global.edit') }}
+                </a>
+            </span>
+            @endcan
+            @can('product_delete')
+            <form action="{{ route('frontend.products.destroy', $product->id) }}" method="POST"
+                onsubmit="return confirm('{{ trans('global.areYouSure') }}');"
+                class="d-flex justify-content-end align-content-center align-items-center">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <span class="btn btn-xs btn-danger" onclick="$(this).closest('form').submit();">
+                    <i class="fas fa-trash-alt"></i> <input type="submit" class="btn-danger btn btn-xs"
+                        value="{{ trans('global.delete') }}">
+                </span>
+            </form>
+            @endcan
+        </div>
+        @endcan
+
+        <div class="container-fluid">
+            <span class="d-flex align-items-center align-content-center">
+                <a href="{{ route('frontend.home')}}">Home</a><i class="fas fa-angle-right px-1"></i><a
+                    href="{{ route('frontend.products.index')}}">Products</a><i
+                    class="fas fa-angle-right px-1"></i><span>{{ $product->name }}</span>
+            </span>
+        </div>
+
+        <div class="col-md-9 mt-4">
             <div class="row">
                 <div class="col-6">
                     <img src="{{ $product->img_url}}" class="img-responsive img-fluid" />
@@ -108,13 +140,41 @@
                 <div class="col-6">
                     <h4 class="mb-4">{{ $product->name }}</h4>
                     <div class="d-flex justify-content-between align-items-center align-content-center">
-                        <h6 >R{{ $product->price}}</h6>
+                        <h6>R{{ $product->price}}</h6>
                         <span>
                             <a href="" class="btn btn-rounded-30 btn-primary">Add to Cart</a>
                             <a href="" class="btn btn-rounded-30 btn-success">Buy Now</a>
                         </span>
                     </div>
-                    <p class="text-justify mt-4">{{ $product->description }}</p>
+                    <hr />
+                    <p class="text-center mt-4">{{ $product->description }}</p>
+                    <hr />
+
+                    {{-- Categories and tags --}}
+                    <p>
+                        @forelse ($product->categories as $category)
+                        <span class="badge badge-pill badge-primary">
+                            <a href="{{ route('frontend.products.getByCategory', $category->id) }}"
+                                class="text-white nodeco">
+                                <i class="fas fa-cubes"></i>
+                                {{ $category->name }}
+                            </a>
+                        </span>
+                        @empty
+
+                        @endforelse
+
+                        @forelse ($product->tags as $tag)
+                        <span class="badge badge-pill badge-secondary">
+                            <a href="{{ route('frontend.products.getByTag', $tag->id) }}" class="text-white nodeco">
+                                <i class="fas fa-tags"></i>
+                                {{ $tag->name }}
+                            </a>
+                        </span>
+                        @empty
+
+                        @endforelse
+                    </p>
                 </div>
             </div>
         </div>
@@ -122,8 +182,29 @@
             Right Pane
         </div>
     </div>
-    <div class="row">
+    <div class="my-4">
+        <hr />
+    </div>
+    <div class="container mt-4 ">
         {{-- Add Products from similar category/ies? --}}
+        <h4 class="text-center">Similar Products</h4>
+
+        <div class="row product-cards card-deck mt-4">
+            @forelse ($similarProducts as $category)
+            @forelse ($category->products as $key=>$cproduct)
+            @if($cproduct->id != $product->id)
+            {{-- //Ensure current product doesn't show twice --}}
+            <div class="col-md-4 p-2">
+                @include("frontend.products._productCard")
+            </div>
+            @endif
+            @empty
+
+            @endforelse
+            @empty
+
+            @endforelse
+        </div>
     </div>
 </div>
 @endsection
