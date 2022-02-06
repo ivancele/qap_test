@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
 
-            <div class="card">
+            {{-- <div class="card">
                 <div class="card-header">
                     {{ trans('global.show') }} {{ trans('cruds.product.title') }}
                 </div>
@@ -56,7 +56,7 @@
                                     </th>
                                     <td>
                                         @foreach($product->categories as $key => $category)
-                                            <span class="label label-info">{{ $category->name }}</span>
+                                        <span class="label label-info">{{ $category->name }}</span>
                                         @endforeach
                                     </td>
                                 </tr>
@@ -66,7 +66,7 @@
                                     </th>
                                     <td>
                                         @foreach($product->tags as $key => $tag)
-                                            <span class="label label-info">{{ $tag->name }}</span>
+                                        <span class="label label-info">{{ $tag->name }}</span>
                                         @endforeach
                                     </td>
                                 </tr>
@@ -76,9 +76,10 @@
                                     </th>
                                     <td>
                                         @if($product->photo)
-                                            <a href="{{ $product->photo->getUrl() }}" target="_blank" style="display: inline-block">
-                                                <img src="{{ $product->photo->getUrl('thumb') }}">
-                                            </a>
+                                        <a href="{{ $product->photo->getUrl() }}" target="_blank"
+                                            style="display: inline-block">
+                                            <img src="{{ $product->photo->getUrl('thumb') }}">
+                                        </a>
                                         @endif
                                     </td>
                                 </tr>
@@ -91,9 +92,38 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
+            <h3 class="text-center">Product Page</h3>
+            <hr />
         </div>
+
+        {{-- Breadcrumb here? --}}
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-6">
+                    <img src="{{ $product->img_url}}" class="img-responsive img-fluid" />
+                </div>
+
+                <div class="col-6">
+                    <h4 class="mb-4">{{ $product->name }}</h4>
+                    <div class="d-flex justify-content-between align-items-center align-content-center">
+                        <h6 >R{{ $product->price}}</h6>
+                        <span>
+                            <a href="" class="btn btn-rounded-30 btn-primary">Add to Cart</a>
+                            <a href="" class="btn btn-rounded-30 btn-success">Buy Now</a>
+                        </span>
+                    </div>
+                    <p class="text-justify mt-4">{{ $product->description }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            Right Pane
+        </div>
+    </div>
+    <div class="row">
+        {{-- Add Products from similar category/ies? --}}
     </div>
 </div>
 @endsection

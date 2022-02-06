@@ -36,6 +36,12 @@ class ProductCategory extends Model implements HasMedia
         'deleted_at',
     ];
 
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class);
+    }
+    
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('thumb')->fit('crop', 50, 50);
