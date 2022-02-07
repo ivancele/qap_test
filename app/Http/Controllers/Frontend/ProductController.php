@@ -93,8 +93,6 @@ class ProductController extends Controller
 
         $product->load('categories', 'tags');
 
-        // \Log::debug($product->categories->pluck('id'));
-
         $similarProducts = ProductCategory::find($product->categories->pluck('id'))->load('products');
 
         return view('frontend.products.show', compact('product', 'similarProducts'));

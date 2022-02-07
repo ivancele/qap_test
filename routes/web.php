@@ -124,4 +124,9 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
     Route::post('frontend/profile', 'ProfileController@update')->name('profile.update');
     Route::post('frontend/profile/destroy', 'ProfileController@destroy')->name('profile.destroy');
     Route::post('frontend/profile/password', 'ProfileController@password')->name('profile.password');
+
+    //Cart
+    Route::get('/product/add-to-cart/{product}', 'CartController@addtocart')->name('product.addToCart');
+    Route::get('/cart/clear', 'CartController@clearCart')->name('cart.clear');
+    Route::get('/cart', 'CartController@show')->name('cart.show');
 });

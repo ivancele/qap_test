@@ -9,8 +9,9 @@
         </span>
     </div>
     @if($cproduct->photo)
+        <img src="{{$cproduct->photo->getUrl() }}" class="card-img-top img-fluid m-2" alt="Product Image">
     @elseif($cproduct->img_url)
-    <img src="{{$cproduct->img_url}}" class="card-img-top img-fluid m-2" alt="...">
+        <img src="{{$cproduct->img_url}}" class="card-img-top img-fluid m-2" alt="...">
     @endif
     <div class="card-body">
         <h4 class="text-center">{{$cproduct->name}}</h4>
@@ -25,9 +26,9 @@
                 More Info
             </a>
             @endcan
-            <a class="btn btn-success col-6 rounded-0" href="{{ route('frontend.products.show', $cproduct->id) }}">
+            <button class="btn btn-success col-6 rounded-0" onclick="addToCartBtn({{$cproduct->id}})">
                 <i class="fas fa-cart-plus"></i> Add to Cart
-            </a>
+            </button>
         </div>
     </div>
 </div>

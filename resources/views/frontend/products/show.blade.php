@@ -134,7 +134,11 @@
         <div class="col-md-9 mt-4">
             <div class="row">
                 <div class="col-6">
-                    <img src="{{ $product->img_url}}" class="img-responsive img-fluid" />
+                    @if ($product->photo)
+                        <img src="{{ $product->photo->getUrl() }}" class="img-responsive img-fluid" alt="Product Image" />
+                    @else
+                        <img src="{{ $product->img_url}}" class="img-responsive img-fluid" />
+                    @endif
                 </div>
 
                 <div class="col-6">
@@ -142,8 +146,8 @@
                     <div class="d-flex justify-content-between align-items-center align-content-center">
                         <h6>R{{ $product->price}}</h6>
                         <span>
-                            <a href="" class="btn btn-rounded-30 btn-primary">Add to Cart</a>
-                            <a href="" class="btn btn-rounded-30 btn-success">Buy Now</a>
+                            <a href="" class="btn btn-rounded-30 btn-primary">Buy Now</a>
+                            <a href="{{ route('frontend.product.addToCart', $product->id) }}" class="btn btn-rounded-30 btn-success"><i class="fas fa-cart-plus"></i> Add to Cart</a>
                         </span>
                     </div>
                     <hr />

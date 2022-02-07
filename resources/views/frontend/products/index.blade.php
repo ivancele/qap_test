@@ -143,6 +143,9 @@
 @parent
 <script>
     $(function () {
+
+        //Add an onclick event to listen to add to cart btn and send a query to api endpoint to add to cart
+
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
 @can('product_delete')
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
